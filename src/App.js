@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import Categories from "./Pages/Categories";
+import Meals from "./Pages/Meals";
+import MealDetail from "./Pages/MealDetail";
 
-function App() {
+const Box = ({ children }) => <div style={{ padding: 20 }}>{children}</div>;
+
+function Home() {
+  const go = useNavigate();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box>
+      <h2> Meals Demo</h2>
+      <button onClick={() => go("/categories")}>Go to Categories</button>
+    </Box>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/categories/:name" element={<Meals />} />
+        <Route path="/meal/:id" element={<MealDetail />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
